@@ -33,5 +33,6 @@ bool USensorMsgsImageConverter::ConvertOutgoingMessage(TSharedPtr<FROSBaseMsg> B
 	"step", BCON_INT32(Image->step)
 	);
 	bson_append_binary(*message, "data", -1, BSON_SUBTYPE_BINARY, Image->data, Image->height * Image->step );
+	// bson_append_binary(*message, "data", -1, BSON_SUBTYPE_BINARY, Image->data, 512 * 512 );
 	return true;
 }

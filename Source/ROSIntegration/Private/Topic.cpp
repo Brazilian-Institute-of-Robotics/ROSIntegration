@@ -179,7 +179,7 @@ void UTopic::PostInitProperties()
 {
 	Super::PostInitProperties();
 
-	OnConstruct();
+	// OnConstruct();
 }
 
 void UTopic::BeginDestroy() {

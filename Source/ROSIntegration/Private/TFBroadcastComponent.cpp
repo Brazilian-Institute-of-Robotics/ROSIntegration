@@ -93,7 +93,7 @@ void UTFBroadcastComponent::TickComponent(float DeltaTime,
 	FString CurrentThisFrameName = ThisFrameName;
 	if (UseActorLabelAsFrame)
 	{
-		CurrentThisFrameName = GetOwner()->GetActorLabel();
+		CurrentThisFrameName = GetOwner()->GetHumanReadableName();
 	}
 
 	// The frame name of the parent
@@ -105,12 +105,12 @@ void UTFBroadcastComponent::TickComponent(float DeltaTime,
 		AActor* ParentActor = GetParentActor();
 		if (ParentActor)
 		{
-			CurrentParentFrameName = ParentActor->GetActorLabel();
+			CurrentParentFrameName = ParentActor->GetHumanReadableName();
 			// Force set the CoordsRelativeTo Variable to RELATIVE 
 			// Please make sure that the child has set it's transformation to 'relative'
 			CoordsRelativeTo = ECoordinateType::COORDTYPE_RELATIVE;
 		} else {
-			UE_LOG(LogTemp, Error, TEXT("[TFBroadcast] UseParentActorLabelAsParentFrame==true and No Parent Component on %s - Add a parent actor or deactive UseParentActorLabelAsParentFrame"), *(GetOwner()->GetActorLabel()));
+			UE_LOG(LogTemp, Error, TEXT("[TFBroadcast] UseParentActorLabelAsParentFrame==true and No Parent Component on %s - Add a parent actor or deactive UseParentActorLabelAsParentFrame"), *(GetOwner()->GetHumanReadableName()));
 		}
 	}
 
@@ -120,7 +120,7 @@ void UTFBroadcastComponent::TickComponent(float DeltaTime,
 	if (CoordsRelativeTo == ECoordinateType::COORDTYPE_RELATIVE) {
 		AActor* ParentActor = GetParentActor();
 		if (!ParentActor) {
-			UE_LOG(LogTemp, Error, TEXT("[TFBroadcast] CoordsRelativeTo == ECoordinateType::COORDTYPE_RELATIVE and No Parent Component on %s - Add a parent actor or use world coordinates. Skipping TF Broadcast"), *(GetOwner()->GetActorLabel()));
+			UE_LOG(LogTemp, Error, TEXT("[TFBroadcast] CoordsRelativeTo == ECoordinateType::COORDTYPE_RELATIVE and No Parent Component on %s - Add a parent actor or use world coordinates. Skipping TF Broadcast"), *(GetOwner()->GetHumanReadableName()));
 			return;
 		}
 		FTransform ThisTransformInWorldCoordinates = GetOwner()->GetRootComponent()->GetComponentTransform();
