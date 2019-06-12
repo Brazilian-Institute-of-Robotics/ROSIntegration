@@ -33,7 +33,9 @@ public:
 		img->step = GetInt32FromBSON(key + ".step", b, KeyFound); if (!KeyFound) return false;
 
 		uint32_t binSize = 0;
-		img->data = rosbridge2cpp::Helper::get_binary_by_key(TCHAR_TO_UTF8(*(key + ".data")), *b, binSize, KeyFound);
+    const uint8* ReceivedData = rosbridge2cpp::Helper::get_binary_by_key(TCHAR_TO_UTF8(*(key + ".data")), *b, binSize, KeyFound);
+    img->data = TArray<FColor>((FColor*)ReceivedData, binSize);
+    delete ReceivedData;
 
 		return KeyFound;
 	}
