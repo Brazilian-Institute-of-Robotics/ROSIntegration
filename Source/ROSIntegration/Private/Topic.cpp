@@ -107,7 +107,6 @@ public:
 			UE_LOG(LogROS, Error, TEXT("Failed to ConvertMessage in UTopic::Publish()"));
 			return false;
 		}
-    return true;
 	}
 
 	void Init(UROSIntegrationCore *Ric, const FString& Topic, const FString& MessageType, int32 QueueSize)
