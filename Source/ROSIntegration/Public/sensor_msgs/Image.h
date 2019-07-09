@@ -37,7 +37,7 @@ namespace ROSMessages {
 			// To avoid copy operations of the image data, 
 			// hand over a pointer to the uint8 data. 
 			// Please note, that the memory this pointer points to must be valid until this message has been published.
-			const uint8* data;		// actual matrix data, size is (step * rows)
+			TArray<FColor> data;		// actual matrix data, size is (step * rows)
 		};
 	}
 }
