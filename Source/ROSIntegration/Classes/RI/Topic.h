@@ -17,8 +17,9 @@
 UENUM(BlueprintType, Category = "ROS")
 enum class EMessageType : uint8
 {
-	String = 0,
-	Float32 = 1,
+    String = 0,
+    Float32 = 1,
+    Image = 2,
 };
 
 UCLASS(Blueprintable)
@@ -86,6 +87,9 @@ private:
 
     UFUNCTION(BlueprintCallable, Category = "ROS|Topic")
     bool PublishStringMessage(const FString& Message);
+
+    UFUNCTION(BlueprintCallable, Category = "ROS|Topic")
+    bool PublishImage(const TArray<FColor> Data, int Height, int Width);
 
     // Helper to keep track of self-destruction for async functions
     TSharedPtr<UTopic, ESPMode::ThreadSafe> _SelfPtr;

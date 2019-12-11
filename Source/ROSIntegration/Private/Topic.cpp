@@ -172,6 +172,7 @@ UTopic::UTopic(const FObjectInitializer& ObjectInitializer)
     {
         SupportedMessageTypes.Add(EMessageType::String, TEXT("std_msgs/String"));
         SupportedMessageTypes.Add(EMessageType::Float32, TEXT("std_msgs/Float32"));
+        SupportedMessageTypes.Add(EMessageType::Image, TEXT("sensor_msgs/Image"));
     }
 }
 
@@ -357,5 +358,33 @@ bool UTopic::PublishStringMessage(const FString& Message)
 
     TSharedPtr<ROSMessages::std_msgs::String> msg = MakeShareable(new ROSMessages::std_msgs::String);
     msg->_Data = Message;
+    return _Implementation->Publish(msg);
+}
+
+bool UTopic::PublishImage(const TArray<FColor> Data, int Height, int Width)
+{
+    check(_Implementation->_MessageType == TEXT("sensor_msgs/Image"));
+
+    if (!_State.Advertised)
+    {
+        if (!Advertise())
+        {
+            return false;
+        }
+    }
+
+    TSharedPtr<ROSMessages::sensor_msgs::Image> msg = MakeShareable(new ROSMessages::sensor_msgs::Image);
+
+    ROSMessages::std_msgs::Header HeaderMessage;
+
+	  HeaderMessage.frame_id = FString(TEXT("body"));
+	  HeaderMessage.time = FROSTime::Now();
+	  msg->header = HeaderMessage;
+    msg->height = Height;
+	  msg->width = Width;
+	  msg->step = Width * 4;
+	  msg->encoding = FString(TEXT("bgra8"));
+	  msg->data = Data;
+
     return _Implementation->Publish(msg);
 }
