@@ -19,6 +19,11 @@
 			"Name": "ROSIntegration",
 			"Type": "Developer",
 			"LoadingPhase": "Default"
+		},
+        {
+			"Name": "PublishingBP",
+			"Type": "Developer",
+			"LoadingPhase": "Default"
 		}
 	]
 }
