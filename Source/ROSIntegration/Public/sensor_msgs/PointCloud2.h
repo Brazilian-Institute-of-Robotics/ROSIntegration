@@ -47,7 +47,7 @@ namespace ROSMessages {
 
             // To avoid copy operations of the point data, hand over a pointer to the data. 
 			// Please note, that the memory this pointer points to must be valid until this message has been published.
-            const uint8* data_ptr;
+            TArray<FVector> data;
 
             bool is_dense;
 		};

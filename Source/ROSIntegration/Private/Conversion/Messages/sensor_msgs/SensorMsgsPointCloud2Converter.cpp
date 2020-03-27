@@ -44,7 +44,7 @@ bool USensorMsgsPointCloud2Converter::ConvertOutgoingMessage(TSharedPtr<FROSBase
     BSON_APPEND_INT32(*message, "point_step", PointCloud2->point_step);
     BSON_APPEND_INT32(*message, "row_step", PointCloud2->row_step);
 
-	bson_append_binary(*message, "data", -1, BSON_SUBTYPE_BINARY, PointCloud2->data_ptr, PointCloud2->height * PointCloud2->row_step);
+	bson_append_binary(*message, "data", -1, BSON_SUBTYPE_BINARY, (uint8*)PointCloud2->data.GetData(), PointCloud2->height * PointCloud2->row_step);
     BSON_APPEND_BOOL(*message, "is_dense", PointCloud2->is_dense);
 	return true;
 }
